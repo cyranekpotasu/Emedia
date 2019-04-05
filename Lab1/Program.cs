@@ -29,12 +29,11 @@ namespace Lab1
                 //Console.WriteLine(BitConverter.ToString(wavData));
 
 
-                
+                Console.WriteLine(wavData.Length);
                 var header = parser.Metadata();
-                Console.WriteLine(BitConverter.ToString(header));
+                parser.WriteData(header);
+                
 
-                string h = System.Text.Encoding.ASCII.GetString(header);
-                Console.WriteLine(h);
             }
             else
             {
