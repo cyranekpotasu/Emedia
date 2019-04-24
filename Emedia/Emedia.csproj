@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C8D9B5F-0128-4DE6-A768-53119C9B415C}</ProjectGuid>
+    <ProjectGuid>{E9508906-F959-4E2D-955F-06FF8AC80CD2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Emedia</RootNamespace>
     <AssemblyName>Emedia</AssemblyName>
@@ -44,17 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cipher.cs" />
     <Compile Include="Data.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader.cs" />
     <Compile Include="RSA.cs" />
+    <Compile Include="Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="11k16bitpcm.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

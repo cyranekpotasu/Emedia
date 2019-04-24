@@ -1,0 +1,7 @@
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\bin\Debug\Emedia.exe.config
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\bin\Debug\Emedia.exe
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\bin\Debug\Emedia.pdb
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\obj\Debug\Emedia.csprojAssemblyReference.cache
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\obj\Debug\Emedia.csproj.CoreCompileInputs.cache
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\obj\Debug\Emedia.exe
+C:\Users\48888\Desktop\E-media\Lab1\Emedia\Emedia\obj\Debug\Emedia.pdb
