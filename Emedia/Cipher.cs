@@ -15,6 +15,18 @@ namespace Emedia
             this.Data = data;
         }
 
+        public void xor()
+        {
+            RSA rsa = new RSA();
+
+            for (int i = 0; i < Data.Length; i++)
+            {
+                int value = rsa.getEncryption(i);
+                Data[i] = (byte)(value ^ Data[i]);
+            }
+
+        }
+
         public float[] getCipheredData()
         {
             RSA rsa = new RSA();

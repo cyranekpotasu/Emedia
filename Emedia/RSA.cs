@@ -9,18 +9,18 @@ namespace Emedia
     class RSA
     {
 
-        private readonly int p = 1123;
-        private readonly int q = 1237;
+        private readonly long p = 32416190071;
+        private readonly long q = 32416189381;
         private long e = 834781;
         private long d = 1087477;
-        private int n;
+        private long n;
 
         public RSA()
         {
             this.n = this.getN();
         }
 
-        private int getN()
+        private long getN()
         {
             return this.p * this.q;
         }
@@ -60,5 +60,14 @@ namespace Emedia
             }
             return rsaData;
         }
+
+        public int getEncryption(int x)
+        {
+            long value = (long)x% this.n;
+            return (int)this.CipherLoop(this.e, value);
+
+        }
+        
+
     }
 }
