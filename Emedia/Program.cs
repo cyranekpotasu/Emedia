@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Emedia
 {
@@ -10,45 +7,53 @@ namespace Emedia
     {
         static void Main(string[] args)
         {
-            Header wavheader = new Header();
-            string filepath = "C:\\Users\\48888\\Desktop\\11k16bitpcm.wav";
+            Data wavheader = new Data();
+            string filepath = "1ToEncrypt.wav";
+            string encryptedFile = "2Encrypted.wav";
+            string dencryptedFile = "3Dencrypted.wav";
 
 
             wavheader = new Reader(filepath).ReadWAVFile();
-            Header cipheredFile = wavheader;
-            Cipher cipher = new Cipher(cipheredFile.WavData.OriginalData);
-            cipher.xor();
-            Writer wavWriter = new Writer("C:\\Users\\48888\\Desktop\\11k16bitpcm1.wav");
-            wavWriter.WriteWAVFile(cipheredFile);
+            Data cipheredFile = wavheader;
 
-            Header cipheredFile1 = new Reader("C:\\Users\\48888\\Desktop\\11k16bitpcm1.wav", true).ReadWAVFile();
-            Cipher cipher1 = new Cipher(cipheredFile1.WavData.OriginalData);
-            cipher1.xor();
-            Writer wavWriter1 = new Writer("C:\\Users\\48888\\Desktop\\11k16bitpcm2.wav");
-            wavWriter1.WriteWAVFile(cipheredFile1);
-
-            //Header cipheredFile = wavheader;
-            //Console.WriteLine(wavheader.WavData.OriginalData.Length);
-            ////304534
-            //Cipher cipher = new Cipher(cipheredFile.WavData.OriginalData);
-            //float[] encoded = cipher.getCipheredData();
-            //cipheredFile.WavData.OriginalData = cipheredFile.WavData.Normalize(encoded);
-            //Writer wavWriter = new Writer("C:\\Users\\48888\\Desktop\\11k16bitpcm1.wav");
+            //Cipher cipher = new Cipher(cipheredFile.WavData);
+            //cipher.Xor();
+            //Writer wavWriter = new Writer(encryptedFile);
             //wavWriter.WriteWAVFile(cipheredFile);
-
-            //cipher.xorEncryption();
-
-            //Console.WriteLine(wavheader.Metadata());
-
-            //Header cipheredFile1 = new Reader("C:\\Users\\48888\\Desktop\\11k16bitpcm1.wav", true).ReadWAVFile();
-            //Cipher cipher1 = new Cipher(cipheredFile1.WavData.OriginalData);
-            //float[] decipheredFloats = cipheredFile1.WavData.Denormalize();
-            //cipheredFile1.WavData.OriginalData = cipher1.getDecipheredData(decipheredFloats);
-            //Writer wavWriter1 = new Writer("C:\\Users\\48888\\Desktop\\11k16bitpcm2.wav");
+            //Console.WriteLine(cipheredFile.Metadata());
+            //Data cipheredFile1 = new Reader(encryptedFile).ReadWAVFile();
+            //Cipher cipher1 = new Cipher(cipheredFile1.WavData);
+            //cipher1.Xor();
+            //Writer wavWriter1 = new Writer(dencryptedFile);
             //wavWriter1.WriteWAVFile(cipheredFile1);
 
+
+
+
+            RSA rsa = new RSA(cipheredFile.WavData);
+            cipheredFile.RSAChange(rsa.Encrypt());
+            Writer wavWriter = new Writer(encryptedFile);
+            wavWriter.WriteWAVFile(cipheredFile);
+
+            Data cipheredFile1 = new Reader(encryptedFile).ReadWAVFile();
+            RSA rsa1 = new RSA(cipheredFile1.WavData);
+            cipheredFile1.RSAReChange(rsa.Decrypt());           
+            Writer wavWriter1 = new Writer(dencryptedFile);
+            wavWriter1.WriteWAVFile(cipheredFile1);
+
+
+
+
+            //Console.WriteLine("Choose number:");
+            //long x = Convert.ToInt32(Console.ReadLine());
+            //long y = Convert.ToInt32(Console.ReadLine());
+            //cipher.primeNumerGenerator(x, y);
+            //cipher.PrintPrime();
+
+
+
             Console.WriteLine("Finish");
-            Console.Read();
+            Console.ReadLine();
 
         }
     }

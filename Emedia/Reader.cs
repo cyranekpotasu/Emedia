@@ -6,31 +6,12 @@ namespace Emedia
     class Reader
     {
         public string Filename { get; set; }
-        bool isEncoded = false;
-
-        public Reader()
-        {
-
-        }
 
         public Reader(string filename)
         {
             try
             {
                 this.Filename = this.ValidateFileName(filename) ? filename : throw new Exception();
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
-        public Reader(string filename, bool isEncoded)
-        {
-            try
-            {
-                this.Filename = this.ValidateFileName(filename) ? filename : throw new Exception();
-                this.isEncoded = isEncoded;
             }
             catch (Exception e)
             {
@@ -79,9 +60,9 @@ namespace Emedia
             }
         }
 
-        public Header ReadWAVFile()
+        public Data ReadWAVFile()
         {
-            Header wavHeader = new Header();
+            Data wavHeader = new Data();
             using (FileStream fs = File.Open(this.Filename, FileMode.Open))
             {
                 BinaryReader binaryReader = new BinaryReader(fs);
@@ -98,9 +79,8 @@ namespace Emedia
                 wavHeader.BitPerSample = binaryReader.ReadInt16();
                 wavHeader.Subchunk2Id = this.FormatValue(binaryReader.ReadInt32());
                 wavHeader.Subchunk2Size = binaryReader.ReadInt32();
-                byte[] readDataBytes = isEncoded ? binaryReader.ReadBytes(wavHeader.Subchunk2Size * 4) : binaryReader.ReadBytes(wavHeader.Subchunk2Size); ;
-                Data wavData = new Data(readDataBytes, wavHeader.Subchunk2Size);
-                wavHeader.WavData = wavData;
+                byte[] readDataBytes = binaryReader.ReadBytes(wavHeader.Subchunk2Size);
+                wavHeader.WavData = readDataBytes;
             }
             return wavHeader;
         }

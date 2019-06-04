@@ -6,7 +6,7 @@ namespace Emedia
 {
     class Writer
     {
-        private string filename;
+        private readonly string filename;
 
         public Writer(string filename)
         {
@@ -20,7 +20,7 @@ namespace Emedia
             return BitConverter.ToInt32(bytes, 0);
         }
 
-        public void WriteWAVFile(Header header)
+        public void WriteWAVFile(Data header)
         {
             using (FileStream fs = File.Open(this.filename, FileMode.OpenOrCreate))
             {
@@ -38,7 +38,7 @@ namespace Emedia
                 binaryWriter.Write((Int16)header.BitPerSample);
                 binaryWriter.Write(this.FormatValue(header.Subchunk2Id));
                 binaryWriter.Write(header.Subchunk2Size);
-                binaryWriter.Write(header.WavData.OriginalData);
+                binaryWriter.Write(header.WavData);
             }
         }
     }
