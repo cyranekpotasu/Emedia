@@ -8,20 +8,20 @@ namespace Emedia
 {
     class RSA
     {
-        private readonly int p = 1123;
-        private readonly int q = 1237;
+        private readonly int p = 104729;
+        private readonly int q = 104723;
         private readonly int phi;
-        private readonly int e;
-        private readonly int d;
+        private readonly int e=11;
+        private readonly int d=13;
         private readonly int n;
         public byte[] data { get; set; }
 
 
         public RSA(byte[] data)
         {
-            phi = (p - 1) * (q - 1);
-            e = GetE(phi);
-            d = GetD(e, phi);
+            //this.phi = (p - 1) * (q - 1);
+            //this.e = GetE(phi);
+            //this.d = GetD(e, phi);
             this.data = data;
             this.n = GetN();
         }
@@ -116,25 +116,35 @@ namespace Emedia
         public byte[] ToByteFile(float[] floatData)
         {
             List<byte> bytes = new List<byte>();
-
-            for (int i = 0; i < floatData.Length; ++i)
+            try
             {
-                byte[] after = new byte[4];
-                byte[] beforer = this.GetBytes(floatData[i].ToString());
 
-                for (int j = 0; j < beforer.Length; ++j)
+                for (int i = 0; i < floatData.Length; ++i)
                 {
-                    after[j] = beforer[j];
-                }
+                    byte[] after = new byte[4];
+                    byte[] befor = this.GetBytes(floatData[i].ToString());
 
-                foreach(byte b in after)
-                {
-                    bytes.Add(b);
-                }
+                    for (int j = 0; j < befor.Length; ++j)
+                    {
+                        after[j] = befor[j];
+                    }
+                    foreach (byte b in after)
+                    {
+                        bytes.Add(b);
+                    }
+                }               
+                
+            }
+            catch (Exception e)
+            {
+                
             }
             return bytes.ToArray();
 
         }
+            
+
+    
 
         public byte[] GetBytes(string str)
         {

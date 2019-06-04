@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Numerics;
 using System.Collections.Generic;
 
 namespace Emedia
@@ -12,26 +13,14 @@ namespace Emedia
         private readonly long e = 834781;
         private readonly long d = 1087477;
         private readonly long n;
-        List<long> primeList = new List<long>();
+        List<BigInteger> primeList = new List<BigInteger>();
         public byte[] data { get; set; }
-        private readonly String key1;
-        private readonly String key2;
+        string prime = "prime.txt";
 
 
         public Cipher(byte[] data)
         {
-            using (StreamReader sr = new StreamReader("key1.txt"))
-            {
-
-                key1 = sr.ReadToEnd();
-
-            }
-            using (StreamReader sr = new StreamReader("key2.txt"))
-            {
-
-                key2 = sr.ReadToEnd();
-
-            }
+            
             n = this.GetN();
             this.data = data;
         }
@@ -89,22 +78,31 @@ namespace Emedia
         }
 
         
-        public void primeNumerGenerator(long x, long y)
-        {   
-            for(long i = x; i < x+y; i++)
+        public void primeNumerGenerator(BigInteger x, BigInteger y)
+        {
+            StreamWriter sw = new StreamWriter(prime);
+            for (BigInteger i = x; i < x+y; i++)
             {
 
-                
+               
                 if(test(i))
                 {
                     primeList.Add(i);
+                    Console.WriteLine("It's prime: " + i);
+                    sw.WriteLine(i);
                     
+                    
+
                 }
                 
             }
+
+            sw.Close();
+
+
         }
 
-        public bool test(long n)
+        public bool test(BigInteger n)
         {
             if (n <= 1)
                 return false;
@@ -112,11 +110,11 @@ namespace Emedia
                 return true;
             if (n % 2 == 0)
                 return false;
-            
 
-            long negativeOne = n - 1;
-            long s = 0;
-            long m = n - 1;
+
+            BigInteger negativeOne = n - 1;
+            BigInteger s = 0;
+            BigInteger m = n - 1;
 
             while (m % 2 == 0)
             {
@@ -125,9 +123,9 @@ namespace Emedia
             }
 
             Random r = new Random();
-            long a = r.Next( (int)n - 1) + 1;
-            long temp = m;
-            long mod = 1;
+            BigInteger a = r.Next( (int)n - 1) + 1;
+            BigInteger temp = m;
+            BigInteger mod = 1;
             for (int j = 0; j < temp; ++j)
             {
                 mod = (mod * a) % n;
