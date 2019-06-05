@@ -8,20 +8,20 @@ namespace Emedia
 {
     class RSA
     {
-        private readonly int p = 104729;
-        private readonly int q = 104723;
+        private readonly int p = 1021;
+        private readonly int q = 1033;
         private readonly int phi;
-        private readonly int e=11;
-        private readonly int d=13;
+        private readonly int e;
+        private readonly int d;
         private readonly int n;
         public byte[] data { get; set; }
 
 
         public RSA(byte[] data)
         {
-            //this.phi = (p - 1) * (q - 1);
-            //this.e = GetE(phi);
-            //this.d = GetD(e, phi);
+            this.phi = (p - 1) * (q - 1);
+            this.e = GetE(phi);
+            this.d = GetD(e, phi);
             this.data = data;
             this.n = GetN();
         }

@@ -8,29 +8,68 @@ namespace Emedia
     class Cipher
     {
 
-        private readonly long p = 32416190071;
-        private readonly long q = 32416189381;
-        private readonly long e = 834781;
-        private readonly long d = 1087477;
+        private readonly long p = 373641053;
+        private readonly long q = 373641071;
+        private readonly long phi;
+        private readonly long e;
+        private readonly long d;
         private readonly long n;
-        List<BigInteger> primeList = new List<BigInteger>();
         public byte[] data { get; set; }
-        string prime = "prime.txt";
+       
 
 
         public Cipher(byte[] data)
         {
-            
+            this.phi = (p - 1) * (q - 1);
+            this.e = GetE(phi);
+            this.d = GetD(e, phi);
             n = this.GetN();
             this.data = data;
         }
 
-        public void PrintPrime()
+        private long GetE(long phi)
         {
-            foreach (long a in primeList)
+            int e;
+            for (e = 3; NWD(e, phi) != 1; e += 2) ;
+            return e;
+        }
+
+        public static long NWD(long a, long b)
+        {
+            long t;
+
+            while (b != 0)
             {
-                Console.WriteLine(a);
+                t = b;
+                b = a % b;
+                a = t;
+            };
+            return a;
+        }
+
+        private static long GetD(long e, long phi)
+        {
+            long b = phi;
+            long d = 0;
+            long u = 1;
+            while (e != 0)
+            {
+                if (e < phi)
+                {
+                    long tmp = u;
+                    u = d;
+                    d = tmp;
+                    tmp = e;
+                    e = phi;
+                    phi = tmp;
+                }
+                long q = e / phi;
+                u = u - q * d;
+                e = e - q * phi;
             }
+            if (phi != 1) return -1;
+            if (d < 0) d += b;
+            return d;
         }
 
         private long GetN()
@@ -38,18 +77,18 @@ namespace Emedia
             return this.p * this.q;
         }
 
-        private long Modulo(long exponent, long originalValue, long modulo)
+        private long Modulo(long e, long d, long n)
         {
-            long cipheredValue = 1;
-            for (long i = exponent; i > 0; i /= 2)
+            long tmp = 1;
+            for (long i = e; i > 0; i /= 2)
             {
                 if (i % 2 == 1)
                 {
-                    cipheredValue = (originalValue * cipheredValue) % modulo;
+                    tmp = (d * tmp) % n;
                 }
-                originalValue = (originalValue * originalValue) % modulo;
+                d = (d * d) % n;
             }
-            return cipheredValue;
+            return tmp;
         }
 
 
@@ -78,67 +117,7 @@ namespace Emedia
         }
 
         
-        public void primeNumerGenerator(BigInteger x, BigInteger y)
-        {
-            StreamWriter sw = new StreamWriter(prime);
-            for (BigInteger i = x; i < x+y; i++)
-            {
 
-               
-                if(test(i))
-                {
-                    primeList.Add(i);
-                    Console.WriteLine("It's prime: " + i);
-                    sw.WriteLine(i);
-                    
-                    
-
-                }
-                
-            }
-
-            sw.Close();
-
-
-        }
-
-        public bool test(BigInteger n)
-        {
-            if (n <= 1)
-                return false;
-            if (n == 2)
-                return true;
-            if (n % 2 == 0)
-                return false;
-
-
-            BigInteger negativeOne = n - 1;
-            BigInteger s = 0;
-            BigInteger m = n - 1;
-
-            while (m % 2 == 0)
-            {
-                s++;
-                m = m / 2;
-            }
-
-            Random r = new Random();
-            BigInteger a = r.Next( (int)n - 1) + 1;
-            BigInteger temp = m;
-            BigInteger mod = 1;
-            for (int j = 0; j < temp; ++j)
-            {
-                mod = (mod * a) % n;
-            }
-            while (temp != n - 1 && mod != 1 && mod != n - 1)
-            {
-                mod = (mod * mod) % n;
-                temp *= 2;
-            }
-
-            if (mod != n - 1 && temp % 2 == 0) return false;
-            return true;
-        }
         
     }
 }

@@ -12,3 +12,12 @@ C:\Users\48888\Desktop\E-media\Lab1\Emedia\obj\Debug\Emedia.csprojAssemblyRefere
 C:\Users\48888\Desktop\E-media\Lab1\Emedia\obj\Debug\Emedia.csproj.CoreCompileInputs.cache
 C:\Users\48888\Desktop\E-media\Lab1\Emedia\obj\Debug\Emedia.exe
 C:\Users\48888\Desktop\E-media\Lab1\Emedia\obj\Debug\Emedia.pdb
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\bin\Debug\Emedia.exe.config
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\bin\Debug\Emedia.exe
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\bin\Debug\Emedia.pdb
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.csprojAssemblyReference.cache
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.csproj.CoreCompileInputs.cache
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.exe
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.pdb
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.Main.resources
+C:\Users\A747049\Desktop\Git\Emedia\Emedia\Emedia\obj\Debug\Emedia.csproj.GenerateResource.cache
